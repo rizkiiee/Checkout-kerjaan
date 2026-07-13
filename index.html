@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Out HR Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📋 Check Out HR Generator</h1>
+    <p class="subtitle">
+        Generator Laporan Check Out HR Rekruitmen
+    </p>
+
+    <div class="card">
+
+        <div class="form-group">
+            <label>Tanggal</label>
+
+            <div class="date-group">
+                <input type="date" id="tanggal">
+
+                <button id="todayBtn">
+                    Hari Ini
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Nama</label>
+
+            <input
+                type="text"
+                id="nama"
+                placeholder="Masukkan nama">
+        </div>
+
+        <div class="form-group">
+            <label>Kendala Hari Ini</label>
+
+            <textarea
+                id="kendala"
+                rows="3"
+                placeholder="Tulis kendala hari ini..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Tindak Lanjut</label>
+
+            <textarea
+                id="tindak"
+                rows="3"
+                placeholder="Tulis tindak lanjut..."></textarea>
+        </div>
+
+        <hr>
+
+        <h2>✅ Check Out Pekerjaan</h2>
+
+        <div id="checkList">
+
+        </div>
+
+        <button class="addBtn" id="addCheck">
+            + Tambah Pekerjaan
+        </button>
+
+        <hr>
+
+        <h2>📅 Rencana Besok</h2>
+
+        <div id="planList">
+
+        </div>
+
+        <button class="addBtn" id="addPlan">
+            + Tambah Rencana
+        </button>
+
+        <hr>
+
+        <div class="button-group">
+
+            <button id="generate">
+                ✨ Generate
+            </button>
+
+            <button id="copy">
+                📋 Copy
+            </button>
+
+            <button id="reset">
+                🗑 Reset
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="preview">
+
+        <h2>Preview</h2>
+
+        <textarea
+            id="output"
+            readonly
+            placeholder="Hasil generate akan muncul di sini..."></textarea>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
