@@ -46,39 +46,55 @@ function formatTanggal(value){
 // TAMBAH ITEM
 // ============================
 
-function tambahItem(container){
+function tambahItem(container, placeholder = "Tulis...") {
 
     const div = document.createElement("div");
 
     div.className = "list-item";
 
     div.innerHTML = `
-        <input type="text" placeholder="Tulis pekerjaan...">
-
+        <input type="text" placeholder="${placeholder}">
         <button class="deleteBtn">✖</button>
     `;
 
-    div.querySelector("button").onclick = () => {
+    const input = div.querySelector("input");
 
+    // Hapus item
+    div.querySelector(".deleteBtn").onclick = () => {
         div.remove();
-
     };
+
+    // Tekan Enter = tambah item baru
+    input.addEventListener("keydown", function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            tambahItem(container, placeholder);
+
+            const inputs = container.querySelectorAll("input");
+            inputs[inputs.length - 1].focus();
+
+        }
+
+    });
 
     container.appendChild(div);
 
 }
 
-addCheck.onclick = ()=>tambahItem(checkList);
-addPlan.onclick = ()=>tambahItem(planList);
-addKendala.onclick = () => tambahItem(kendalaList);
-addTindak.onclick = () => tambahItem(tindakList);
+addCheck.onclick = ()=>tambahItem(checkList, "Tulis pekerjaan...");
+addPlan.onclick = ()=>tambahItem(planList, "Tulis rencana...");
+addKendala.onclick = ()=>tambahItem(kendalaList, "Tulis kendala...");
+addTindak.onclick = ()=>tambahItem(tindakList, "Tulis tindak lanjut...");
 
 // item pertama
 
-tambahItem(checkList);
-tambahItem(planList);
-tambahItem(kendalaList);
-tambahItem(tindakList);
+tambahItem(kendalaList, "Tulis kendala...");
+tambahItem(tindakList, "Tulis tindak lanjut...");
+tambahItem(checkList, "Tulis pekerjaan...");
+tambahItem(planList, "Tulis rencana...");
 
 // ============================
 // HARI INI
