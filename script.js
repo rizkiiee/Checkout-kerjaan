@@ -106,46 +106,60 @@ generateBtn.onclick = () => {
 
     const posisiText = posisi.value.trim() || "HR REKRUITMEN";
 
-    let hasil = `📋 *CEK OUT ${posisiText.toUpperCase()}*
-Tanggal : ${formatTanggal(tanggal.value)}
-Nama : ${nama.value}
-━━━━━━━━━━━━━━━━━━
-━━━━━━━━━━━━━━━━━━
-📝 *CATATAN ${posisiText.toUpperCase()}*
-━━━━━━━━━━━━━━━━━━
-- Kendala Hari Ini :
-${formatNumbering(kendala.value)}
+    let hasil = "";
+    hasil += `📋 *CEK OUT ${posisiText.toUpperCase()}*\n`;
+    hasil += `Tanggal : ${formatTanggal(tanggal.value)}\n`;
+    hasil += `Nama : ${nama.value}\n`;
+    hasil += `━━━━━━━━━━━━━━━━━━\n`;
+    hasil += `━━━━━━━━━━━━━━━━━━\n`;
+    hasil += `📝 *CATATAN ${posisiText.toUpperCase()}*\n`;
+    hasil += `━━━━━━━━━━━━━━━━━━\n`;
 
-- Tindak Lanjut :
-${formatNumbering(tindak.value)}
+    hasil += `- Kendala Hari Ini :\n`;
 
-- Check Out Pekerjaan :
-`;
+    kendala.value
+        .split("\n")
+        .filter(item => item.trim() != "")
+        .forEach((item,index)=>{
+            hasil += `${index+1}. ${item}\n`;
+        });
 
-    pekerjaan.forEach((item, index) => {
+    hasil += `\n- Tindak Lanjut :\n`;
 
-        if (item.value.trim() !== "") {
-            hasil += `${index + 1}. ${item.value}\n`;
+    tindak.value
+        .split("\n")
+        .filter(item => item.trim() != "")
+        .forEach((item,index)=>{
+            hasil += `${index+1}. ${item}\n`;
+        });
+
+    hasil += `\n- Check Out Pekerjaan :\n`;
+
+    pekerjaan.forEach((item,index)=>{
+
+        if(item.value.trim()!=""){
+
+            hasil += `${index+1}. ${item.value}\n`;
+
         }
 
     });
 
-    hasil += `
-- Rencana Pekerjaan Besok :
-`;
+    hasil += `\n- Rencana Pekerjaan Besok :\n`;
 
-    rencana.forEach((item, index) => {
+    rencana.forEach((item,index)=>{
 
-        if (item.value.trim() !== "") {
-            hasil += `${index + 1}. ${item.value}\n`;
+        if(item.value.trim()!=""){
+
+            hasil += `${index+1}. ${item.value}\n`;
+
         }
 
     });
 
-    hasil += `
-━━━━━━━━━━━━━━━━━━
-✅️ *TERIMAKASIH*
-━━━━━━━━━━━━━━━━━━`;
+    hasil += `\n━━━━━━━━━━━━━━━━━━\n`;
+    hasil += `✅️ *TERIMAKASIH*\n`;
+    hasil += `━━━━━━━━━━━━━━━━━━`;
 
     output.value = hasil;
 
