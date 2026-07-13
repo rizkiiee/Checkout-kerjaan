@@ -1,0 +1,199 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#eef3ff;
+    padding:40px 15px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
+
+.card,
+.preview{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#333;
+}
+
+input,
+textarea{
+    width:100%;
+    border:1px solid #d9d9d9;
+    border-radius:10px;
+    padding:12px;
+    font-size:15px;
+    outline:none;
+    transition:.2s;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+textarea{
+    resize:vertical;
+}
+
+.date-group{
+    display:flex;
+    gap:10px;
+}
+
+.date-group input{
+    flex:1;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    border-radius:10px;
+    transition:.25s;
+}
+
+#todayBtn{
+    background:#2563eb;
+    color:white;
+    padding:0 20px;
+}
+
+#todayBtn:hover{
+    background:#1d4ed8;
+}
+
+hr{
+    margin:30px 0;
+    border:none;
+    border-top:1px solid #ececec;
+}
+
+h2{
+    margin-bottom:15px;
+    color:#1e3a8a;
+}
+
+.list-item{
+    display:flex;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.list-item input{
+    flex:1;
+}
+
+.deleteBtn{
+    width:48px;
+    background:#ef4444;
+    color:white;
+    font-size:18px;
+}
+
+.deleteBtn:hover{
+    background:#dc2626;
+}
+
+.addBtn{
+    margin-top:10px;
+    background:#16a34a;
+    color:white;
+    width:100%;
+    padding:12px;
+    font-weight:600;
+}
+
+.addBtn:hover{
+    background:#15803d;
+}
+
+.button-group{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.button-group button{
+    flex:1;
+    min-width:160px;
+    padding:14px;
+    font-size:15px;
+    font-weight:600;
+}
+
+#generate{
+    background:#2563eb;
+    color:white;
+}
+
+#generate:hover{
+    background:#1d4ed8;
+}
+
+#copy{
+    background:#f59e0b;
+    color:white;
+}
+
+#copy:hover{
+    background:#d97706;
+}
+
+#reset{
+    background:#ef4444;
+    color:white;
+}
+
+#reset:hover{
+    background:#dc2626;
+}
+
+.preview textarea{
+    height:420px;
+    font-size:14px;
+    white-space:pre-wrap;
+}
+
+@media(max-width:700px){
+
+    .button-group{
+        flex-direction:column;
+    }
+
+    .date-group{
+        flex-direction:column;
+    }
+
+}
