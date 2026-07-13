@@ -49,32 +49,81 @@ function formatTanggal(value){
 function tambahItem(container, placeholder = "Tulis...") {
 
     const div = document.createElement("div");
-
     div.className = "list-item";
 
     div.innerHTML = `
         <input type="text" placeholder="${placeholder}">
-        <button class="deleteBtn">✖</button>
+        <button class="deleteBtn" type="button">✖</button>
     `;
 
     const input = div.querySelector("input");
+    const deleteBtn = div.querySelector(".deleteBtn");
 
-    // Hapus item
-    div.querySelector(".deleteBtn").onclick = () => {
+    // Hapus dengan tombol X
+    deleteBtn.onclick = () => {
         div.remove();
     };
 
-    // Tekan Enter = tambah item baru
+    // Keyboard shortcut
     input.addEventListener("keydown", function(e){
 
+        const inputs = [...container.querySelectorAll("input")];
+        const index = inputs.indexOf(input);
+
+        // ENTER = tambah baris baru
         if(e.key === "Enter"){
 
             e.preventDefault();
 
             tambahItem(container, placeholder);
 
-            const inputs = container.querySelectorAll("input");
-            inputs[inputs.length - 1].focus();
+            const newInputs = container.querySelectorAll("input");
+            newInputs[newInputs.length - 1].focus();
+
+        }
+
+        // BACKSPACE = hapus jika kosong
+        if(e.key === "Backspace" && input.value === ""){
+
+            if(inputs.length > 1){
+
+                e.preventDefault();
+
+                const prev =
+                    inputs[index - 1] ||
+                    inputs[index + 1];
+
+                div.remove();
+
+                if(prev) prev.focus();
+
+            }
+
+        }
+
+        // PANAH ATAS
+        if(e.key === "ArrowUp"){
+
+            if(index > 0){
+
+                e.preventDefault();
+
+                inputs[index - 1].focus();
+
+            }
+
+        }
+
+        // PANAH BAWAH
+        if(e.key === "ArrowDown"){
+
+            if(index < inputs.length - 1){
+
+                e.preventDefault();
+
+                inputs[index + 1].focus();
+
+            }
 
         }
 
@@ -84,10 +133,19 @@ function tambahItem(container, placeholder = "Tulis...") {
 
 }
 
-addCheck.onclick = ()=>tambahItem(checkList, "Tulis pekerjaan...");
-addPlan.onclick = ()=>tambahItem(planList, "Tulis rencana...");
-addKendala.onclick = ()=>tambahItem(kendalaList, "Tulis kendala...");
-addTindak.onclick = ()=>tambahItem(tindakList, "Tulis tindak lanjut...");
+//pemanggilan item
+
+addKendala.onclick = () =>
+    tambahItem(kendalaList, "Tulis kendala...");
+
+addTindak.onclick = () =>
+    tambahItem(tindakList, "Tulis tindak lanjut...");
+
+addCheck.onclick = () =>
+    tambahItem(checkList, "Tulis pekerjaan...");
+
+addPlan.onclick = () =>
+    tambahItem(planList, "Tulis rencana...");
 
 // item pertama
 
@@ -240,4 +298,40 @@ posisi.addEventListener("input", () => {
 window.addEventListener("load", () => {
     nama.value = localStorage.getItem("nama") || "";
     posisi.value = localStorage.getItem("posisi") || "";
+});
+
+document.addEventListener("keydown", function(e){
+
+    if(e.ctrlKey && e.key === "Enter"){
+
+        e.preventDefault();
+
+        generateBtn.click();
+
+    }
+
+});
+
+document.addEventListener("keydown", function(e){
+
+    if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c"){
+
+        e.preventDefault();
+
+        copyBtn.click();
+
+    }
+
+});
+
+document.addEventListener("keydown", function(e){
+
+    if(e.ctrlKey && e.key.toLowerCase() === "d"){
+
+        e.preventDefault();
+
+        todayBtn.click();
+
+    }
+
 });
