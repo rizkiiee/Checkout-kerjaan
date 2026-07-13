@@ -5,8 +5,11 @@
 const tanggal = document.getElementById("tanggal");
 const nama = document.getElementById("nama");
 const posisi = document.getElementById("posisi");
-const kendala = document.getElementById("kendala");
-const tindak = document.getElementById("tindak");
+const kendalaList = document.getElementById("kendalaList");
+const tindakList = document.getElementById("tindakList");
+
+const addKendala = document.getElementById("addKendala");
+const addTindak = document.getElementById("addTindak");
 
 const addCheck = document.getElementById("addCheck");
 const addPlan = document.getElementById("addPlan");
@@ -66,14 +69,16 @@ function tambahItem(container){
 }
 
 addCheck.onclick = ()=>tambahItem(checkList);
-
 addPlan.onclick = ()=>tambahItem(planList);
+addKendala.onclick = () => tambahItem(kendalaList);
+addTindak.onclick = () => tambahItem(tindakList);
 
 // item pertama
 
 tambahItem(checkList);
-
 tambahItem(planList);
+tambahItem(kendalaList);
+tambahItem(tindakList);
 
 // ============================
 // HARI INI
@@ -116,22 +121,20 @@ generateBtn.onclick = () => {
     hasil += `━━━━━━━━━━━━━━━━━━\n`;
 
     hasil += `- Kendala Hari Ini :\n`;
-
-    kendala.value
-        .split("\n")
-        .filter(item => item.trim() != "")
-        .forEach((item,index)=>{
-            hasil += `${index+1}. ${item}\n`;
-        });
+    const kendala = [...kendalaList.querySelectorAll("input")];
+    kendala.forEach((item,index)=>{
+    if(item.value.trim()!=""){
+        hasil += `${index+1}. ${item.value}\n`;
+        }
+    });
 
     hasil += `\n- Tindak Lanjut :\n`;
-
-    tindak.value
-        .split("\n")
-        .filter(item => item.trim() != "")
-        .forEach((item,index)=>{
-            hasil += `${index+1}. ${item}\n`;
-        });
+    const tindak = [...tindakList.querySelectorAll("input")];
+    tindak.forEach((item,index)=>{
+    if(item.value.trim()!=""){
+      hasil += `${index+1}. ${item.value}\n`;
+        }
+    });
 
     hasil += `\n- Check Out Pekerjaan :\n`;
 
@@ -195,8 +198,11 @@ resetBtn.onclick = ()=>{
 
     tanggal.value="";
     nama.value="";
-    kendala.value="";
-    tindak.value="";
+    kendalaList.innerHTML="";
+    tindakList.innerHTML="";
+    tambahItem(kendalaList);
+    tambahItem(tindakList);
+    
     output.value="";
 
     checkList.innerHTML="";
