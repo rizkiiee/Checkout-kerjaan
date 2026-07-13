@@ -4,6 +4,7 @@
 
 const tanggal = document.getElementById("tanggal");
 const nama = document.getElementById("nama");
+const posisi = document.getElementById("posisi");
 const kendala = document.getElementById("kendala");
 const tindak = document.getElementById("tindak");
 
@@ -96,23 +97,17 @@ generateBtn.onclick = ()=>{
 
     const rencana = [...planList.querySelectorAll("input")];
 
-    let hasil = `📋 *CEK OUT HR REKRUITMEN*
+    let hasil = `📋 *CEK OUT ${posisi.value.toUpperCase()}*
 Tanggal : ${formatTanggal(tanggal.value)}
 Nama : ${nama.value}
-
 ━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━
-
-📝 *CATATAN HR REKRUITMEN*
-
+📝 *CATATAN ${posisi.value.toUpperCase()}*
 ━━━━━━━━━━━━━━━━━━
-
 * Kendala Hari Ini :
 ${kendala.value}
-
 * Tindak Lanjut :
 ${tindak.value}
-
 - Check Out Pekerjaan :
 `;
 
@@ -127,7 +122,6 @@ ${tindak.value}
     });
 
     hasil += `
-
 • Rencana Pekerjaan Besok :
 `;
 
@@ -142,7 +136,6 @@ ${tindak.value}
     });
 
     hasil += `
-
 ━━━━━━━━━━━━━━━━━━
 ✅️ *TERIMAKASIH*
 ━━━━━━━━━━━━━━━━━━`;
@@ -192,3 +185,16 @@ resetBtn.onclick = ()=>{
     tambahItem(planList);
 
 }
+
+nama.addEventListener("input", () => {
+    localStorage.setItem("nama", nama.value);
+});
+
+posisi.addEventListener("input", () => {
+    localStorage.setItem("posisi", posisi.value);
+});
+
+window.addEventListener("load", () => {
+    nama.value = localStorage.getItem("nama") || "";
+    posisi.value = localStorage.getItem("posisi") || "";
+});
