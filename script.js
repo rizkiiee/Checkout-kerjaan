@@ -91,48 +91,53 @@ todayBtn.onclick = ()=>{
 // GENERATE
 // ============================
 
-generateBtn.onclick = ()=>{
+function formatNumbering(text) {
+    return text
+        .split("\n")
+        .filter(item => item.trim() !== "")
+        .map((item, index) => `${index + 1}. ${item}`)
+        .join("\n");
+}
 
-    console.log("Posisi:", posisi.value);
-    
+generateBtn.onclick = () => {
+
     const pekerjaan = [...checkList.querySelectorAll("input")];
-
     const rencana = [...planList.querySelectorAll("input")];
 
-    let hasil = `TES POSISI = ${posisi.value}
+    const posisiText = posisi.value.trim() || "HR REKRUITMEN";
+
+    let hasil = `📋 *CEK OUT ${posisiText.toUpperCase()}*
 Tanggal : ${formatTanggal(tanggal.value)}
 Nama : ${nama.value}
 ━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━
-📝 *CATATAN ${posisi.value.toUpperCase()}*
+📝 *CATATAN ${posisiText.toUpperCase()}*
 ━━━━━━━━━━━━━━━━━━
-* Kendala Hari Ini :
-${kendala.value}
-* Tindak Lanjut :
-${tindak.value}
+- Kendala Hari Ini :
+${formatNumbering(kendala.value)}
+
+- Tindak Lanjut :
+${formatNumbering(tindak.value)}
+
 - Check Out Pekerjaan :
 `;
 
-    pekerjaan.forEach((item,index)=>{
+    pekerjaan.forEach((item, index) => {
 
-        if(item.value.trim()!=""){
-
-            hasil += `${index+1}. ${item.value}\n`;
-
+        if (item.value.trim() !== "") {
+            hasil += `${index + 1}. ${item.value}\n`;
         }
 
     });
 
     hasil += `
-• Rencana Pekerjaan Besok :
+- Rencana Pekerjaan Besok :
 `;
 
-    rencana.forEach((item,index)=>{
+    rencana.forEach((item, index) => {
 
-        if(item.value.trim()!=""){
-
-            hasil += `${index+1}. ${item.value}\n`;
-
+        if (item.value.trim() !== "") {
+            hasil += `${index + 1}. ${item.value}\n`;
         }
 
     });
@@ -144,7 +149,7 @@ ${tindak.value}
 
     output.value = hasil;
 
-}
+};
 
 // ============================
 // COPY
