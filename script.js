@@ -71,7 +71,7 @@ function tambahItem(container, placeholder = "Tulis...") {
         const index = inputs.indexOf(input);
 
         // ENTER = tambah baris baru
-        if(e.key === "Enter"){
+        if (e.key === "Enter" && !e.ctrlKey && !e.shiftKey && !e.altKey) {
 
             e.preventDefault();
 
@@ -302,22 +302,11 @@ window.addEventListener("load", () => {
 
 document.addEventListener("keydown", function(e){
 
-    if(e.ctrlKey && e.key === "Enter"){
-
-        e.preventDefault();
-
-        generateBtn.click();
-
-    }
-
-});
-
-document.addEventListener("keydown", function(e){
-
     if(e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c"){
 
         e.preventDefault();
 
+        generateBtn.click();
         copyBtn.click();
 
     }
