@@ -93,11 +93,13 @@ todayBtn.onclick = ()=>{
 
 generateBtn.onclick = ()=>{
 
+    console.log("Posisi:", posisi.value);
+    
     const pekerjaan = [...checkList.querySelectorAll("input")];
 
     const rencana = [...planList.querySelectorAll("input")];
 
-    let hasil = `📋 *CEK OUT ${posisi.value.toUpperCase()}*
+    let hasil = `TES POSISI = ${posisi.value}
 Tanggal : ${formatTanggal(tanggal.value)}
 Nama : ${nama.value}
 ━━━━━━━━━━━━━━━━━━
