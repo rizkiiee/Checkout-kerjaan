@@ -373,21 +373,14 @@ importBtn.onclick = ()=>{
 
     const text = waText.value;
 
-    const start = text.indexOf("- Rencana Pekerjaan");
+    const match = text.match(/-+\s*Rencana\s+Pekerjaan\s+Besok\s*:\s*([\s\S]*?)━━━━━━━━/i);
 
-    if(start==-1){
-
-        alert("Rencana pekerjaan tidak ditemukan.");
-
-        return;
-
+    if (!match) {
+    alert("Rencana pekerjaan besok tidak ditemukan.");
+    return;
     }
 
-    const end = text.indexOf("━━━━━━━━",start);
-
-    let bagian = text.substring(start,end);
-
-    bagian = bagian.split("\n");
+    const bagian = match[1].trim().split("\n");
 
     checkList.innerHTML="";
 
