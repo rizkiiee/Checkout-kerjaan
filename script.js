@@ -22,6 +22,12 @@ const copyBtn = document.getElementById("copy");
 const resetBtn = document.getElementById("reset");
 const todayBtn = document.getElementById("todayBtn");
 
+const importWA = document.getElementById("importWA");
+const importModal = document.getElementById("importModal");
+const importBtn = document.getElementById("importBtn");
+const closeImport = document.getElementById("closeImport");
+const waText = document.getElementById("waText");
+
 const output = document.getElementById("output");
 
 // ============================
@@ -350,3 +356,61 @@ document.addEventListener("keydown", function(e){
     }
 
 });
+
+importWA.onclick = ()=>{
+
+    importModal.style.display="flex";
+
+}
+
+closeImport.onclick = ()=>{
+
+    importModal.style.display="none";
+
+}
+
+importBtn.onclick = ()=>{
+
+    const text = waText.value;
+
+    const start = text.indexOf("- Rencana Pekerjaan");
+
+    if(start==-1){
+
+        alert("Rencana pekerjaan tidak ditemukan.");
+
+        return;
+
+    }
+
+    const end = text.indexOf("━━━━━━━━",start);
+
+    let bagian = text.substring(start,end);
+
+    bagian = bagian.split("\n");
+
+    checkList.innerHTML="";
+
+    bagian.forEach(line=>{
+
+        line=line.trim();
+
+        if(/^\d+\./.test(line)){
+
+            line=line.replace(/^\d+\.\s*/,"");
+
+            tambahItem(checkList,"Tulis pekerjaan...");
+
+            const inputs=checkList.querySelectorAll("input");
+
+            inputs[inputs.length-1].value=line;
+
+        }
+
+    });
+
+    importModal.style.display="none";
+
+    waText.value="";
+
+}
