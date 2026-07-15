@@ -240,6 +240,17 @@ generateBtn.onclick = () => {
 
     output.value = hasil;
 
+    // Simpan rencana hari ini untuk dijadikan check out besok
+    const dataRencana = [];
+
+    rencana.forEach(item => {
+    if (item.value.trim() !== "") {
+        dataRencana.push(item.value);
+    }
+});
+
+localStorage.setItem("rencanaBesok", JSON.stringify(dataRencana));
+
 };
 
 // ============================
@@ -298,6 +309,21 @@ posisi.addEventListener("input", () => {
 window.addEventListener("load", () => {
     nama.value = localStorage.getItem("nama") || "";
     posisi.value = localStorage.getItem("posisi") || "";
+    const rencanaTersimpan = JSON.parse(localStorage.getItem("rencanaBesok") || "[]");
+
+    if(rencanaTersimpan.length > 0){
+
+        checkList.innerHTML = "";
+
+        rencanaTersimpan.forEach(text => {
+
+            tambahItem(checkList, "Tulis pekerjaan...");
+
+            const inputs = checkList.querySelectorAll("input");
+            inputs[inputs.length - 1].value = text;
+
+      });
+}
 });
 
 document.addEventListener("keydown", function(e){
