@@ -369,41 +369,73 @@ closeImport.onclick = ()=>{
 
 }
 
-importBtn.onclick = ()=>{
+importBtn.onclick = () => {
 
     const text = waText.value;
 
-    const match = text.match(/-+\s*Rencana\s+Pekerjaan\s+Besok\s*:\s*([\s\S]*?)━━━━━━━━/i);
+    const lines = text.split(/\r?\n/);
 
-    if (!match) {
-    alert("Rencana pekerjaan besok tidak ditemukan.");
-    return;
-    }
+    // Kosongkan Check Out dulu
+    checkList.innerHTML = "";
 
-    const bagian = match[1].trim().split("\n");
+    let mulaiAmbil = false;
+    let jumlahImport = 0;
 
-    checkList.innerHTML="";
+    lines.forEach(line => {
 
-    bagian.forEach(line=>{
+        const isi = line.trim();
 
-        line=line.trim();
+        // Mulai ketika menemukan "Rencana"
+        if (
+            isi.toLowerCase().includes("rencana") &&
+            isi.toLowerCase().includes("besok")
+        ) {
+            mulaiAmbil = true;
+            return;
+        }
 
-        if(/^\d+\./.test(line)){
+        // Kalau belum masuk bagian rencana
+        if (!mulaiAmbil) return;
 
-            line=line.replace(/^\d+\.\s*/,"");
+        // Berhenti kalau ketemu penutup
+        if (
+            isi.includes("━━━━━━━━") ||
+            isi.toLowerCase().includes("terimakasih") ||
+            isi.toLowerCase().includes("terima kasih") ||
+            isi.includes("✅")
+        ) {
+            mulaiAmbil = false;
+            return;
+        }
 
-            tambahItem(checkList,"Tulis pekerjaan...");
+        // Ambil hanya yang diawali nomor
+        if (/^\d+\./.test(isi)) {
 
-            const inputs=checkList.querySelectorAll("input");
+            const pekerjaan = isi.replace(/^\d+\.\s*/, "");
 
-            inputs[inputs.length-1].value=line;
+            tambahItem(checkList, "Tulis pekerjaan...");
+
+            const inputs = checkList.querySelectorAll("input");
+
+            inputs[inputs.length - 1].value = pekerjaan;
+
+            jumlahImport++;
 
         }
 
     });
 
-    importModal.style.display="none";
+    if (jumlahImport === 0) {
 
-    waText.value="";
+        alert("Tidak ada rencana pekerjaan yang berhasil diimport.");
 
-}
+        return;
+
+    }
+
+    importModal.style.display = "none";
+    waText.value = "";
+
+    alert(`Berhasil mengimpor ${jumlahImport} pekerjaan! 🎉`);
+
+};
